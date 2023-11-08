@@ -1,0 +1,92 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@mixin Display {
+  display: flex;
+}
+
+@mixin DisplayFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin LogoNav {
+  width: 100%;
+  height: 60px;
+}
+
+@mixin MenuDot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 10px;
+  .menu-dot1 {
+    width: 66%;
+    background-color: #fff;
+    height: 4.9px;
+    border-radius: 10px;
+  }
+  .menu-dot2 {
+    width: 66%;
+    background-color: #fff;
+    height: 4.9px;
+    border-radius: 10px;
+  }
+  .menu-dot3 {
+    width: 66%;
+    background-color: #fff;
+    height: 4.9px;
+    border-radius: 10px;
+  }
+}
+
+@mixin CurrencyModal {
+  .currency-btn {
+    background-color: transparent;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    gap: 5px;
+    &:hover {
+      color: #000;
+    }
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    b {
+      font-weight: 400;
+      color: #fff;
+    }
+  }
+  .lan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@mixin FooterIcons {
+  width: 48px;
+  height: 48px;
+  background-color: #cb11ab;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
