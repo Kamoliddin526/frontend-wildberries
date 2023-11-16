@@ -43,15 +43,15 @@ const Navbar = () => {
           <CameraOutlined className="camera" />
         </div>
         <div className="three-menu">
-          <div className="loc">
+          <div onClick={() => navigate("/address/delivery")} className="loc">
             <img src={Location} alt="" />
             <p> Адреса </p>
           </div>
-          <div className="user">
+          <div onClick={() => navigate("/login")} className="user">
             <img src={User} alt="" />
             <p> Войти </p>
           </div>
-          <div className="cart">
+          <div onClick={() => navigate("/cart")} className="cart">
             <img src={Cart} alt="" />
             <p> Корзина </p>
           </div>
