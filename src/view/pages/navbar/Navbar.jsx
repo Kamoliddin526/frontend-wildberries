@@ -64,7 +64,7 @@ const Navbar = () => {
         <CurrencyModal />
         <div className="nav-search">
           <img src={Location} alt="" />
-          <SearchOutlined className="search"/>
+          <SearchOutlined className="search" />
         </div>
       </div>
     </div>
