@@ -8,18 +8,19 @@ function AddedCarts() {
   const navigate = useNavigate();
   const {
     cartItems,
-    addToCart,
     removeFromCart,
     addToFavorites,
-    deleteFromFavorites,
+    addToCart,
+    decreaseQuantity,
   } = useCart();
 
   const handlePlusClick = (item) => {
-    addToCart(item);
+    const updatedItem = { ...item, price: item.price + 1 }; // Assuming you want to increase the price by 1
+    addToCart(updatedItem);
   };
 
   const handleMinusClick = (item) => {
-    removeFromCart(item);
+    decreaseQuantity(item);
   };
 
   const handleFavoriteClick = (item) => {
@@ -28,7 +29,7 @@ function AddedCarts() {
   };
 
   const handleDeleteClick = (item) => {
-    deleteFromFavorites(item);
+    removeFromCart(item); // Use removeFromCart instead of deleteFromFavorites
   };
 
   // Function to format price for display
@@ -70,7 +71,9 @@ function AddedCarts() {
                     <button onClick={() => handleMinusClick(item)}>-</button>
                     <button onClick={() => handlePlusClick(item)}>+</button>
                   </div>
-                  <span className="item-price">{formatPrice(146100)} сум</span>
+                  <span className="item-price">
+                    {formatPrice(item.price)} сум
+                  </span>
                   <div className="price-item">
                     <HeartOutlined
                       style={{ display: hoveredItem }}
@@ -89,20 +92,50 @@ function AddedCarts() {
             <ul className="right-cart">
               <button>Выбрать адрес доставки</button>
               <div className="product">
-                <b>Товары, 1 шт.</b>
-                <b>{formatPrice(146100)} сум</b>
+                <b>Товары, {cartItems.length} шт.</b>
+                <b>
+                  {formatPrice(
+                    cartItems.reduce((sum, item) => sum + item.price, 0)
+                  )}{" "}
+                  сум
+                </b>
               </div>
               <div className="final">
                 <span>Итого</span>
-                <b>{formatPrice(146100)} сум</b>
+                <b>
+                  {formatPrice(
+                    cartItems.reduce((sum, item) => sum + item.price, 0)
+                  )}{" "}
+                  сум
+                </b>
               </div>
-              <button> Заказать </button>
+              <button onClick={() => navigate('/login')} className="order-btn"> Заказать </button>
               <p>
                 <span>Соглашаюсь</span> с правилами пользования торговой
                 площадкой <span>и </span>
                 возврата
               </p>
             </ul>
+            <div className="method">
+              <div className="way-delivery">
+                <h2>Способ доставки</h2>
+                <p>Выбрать адрес доставки</p>
+              </div>
+              <div className="wrp-two">
+                <div className="way-pay">
+                  <h2>Способ оплаты</h2>
+                  <p>
+                    Войти или зарегистрироваться, <span>чтобы выбрать способ оплаты</span>
+                  </p>
+                </div>
+                <div className="private">
+                  <h2>Мои данные</h2>
+                  <p>
+                    Войти или зарегистрироваться, <span>чтобы оформить заказ</span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </>
         )}
       </div>

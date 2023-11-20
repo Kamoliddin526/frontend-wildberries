@@ -9,52 +9,59 @@ import { Button, Modal } from "antd";
 
 const CurrencyModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [show, setShow] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   return (
     <div className="currency-modal">
-      <Button className="currency-btn" onClick={showModal}>
+      <Button
+        className="currency-btn"
+        onClick={showModal}
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+      >
         <img src={Uzb} alt="" />
         <b>UZB</b>
       </Button>
-      <Modal
-        centered
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        className="modal-cur"
-      >
-        <h2>Выберите валюту</h2>
-        <div className="d-flex">
+      <div style={{ display: show ? "block" : "none" }} className="modal-cur">
+        <h4>Выберите валюту</h4>
+        <div className="d-flex align-items-center gap-3 my-2 ">
           <img src={Rus} alt="" />
           <b>Rus</b>
+          <span>Узбекский сум</span>
         </div>
-        <div className="d-flex">
+        <div className="d-flex align-items-center gap-3 my-2 ">
           <img src={Kir} alt="" />
           <b>Kir</b>
+          <span>Узбекский сум</span>
         </div>
-        <div className="d-flex">
+        <div className="d-flex align-items-center gap-3 my-2 ">
           <img src={Kaz} alt="" />
           <b>Kaz</b>
+          <span>Узбекский сум</span>
         </div>
-        <div className="d-flex">
+        <div className="d-flex align-items-center gap-3 my-2 ">
           <img src={Far} alt="" />
           <b>Far</b>
+          <span>Узбекский сум</span>
         </div>
-        <div className="d-flex">
+        <div className="d-flex align-items-center gap-3 my-2 ">
           <img src={Bel} alt="" />
           <b>Bel</b>
+          <span>Узбекский сум</span>
         </div>
-      </Modal>
+      </div>
     </div>
   );
 };

@@ -17,6 +17,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons/lib/icons";
 import { Collapse } from "antd";
+import { useNavigate } from "react-router-dom";
 const links = `
 Как сделать заказ
 Способы оплаты
@@ -31,6 +32,7 @@ const links = `
 `;
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <div className="footer">
       <div className="footer-links">
@@ -185,11 +187,17 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-menu">
-        <HomeOutlined className="menu-icon" />
+        <HomeOutlined onClick={() => navigate("/")} className="menu-icon" />
         <QrcodeOutlined className="menu-icon" />
-        <ShoppingCartOutlined className="menu-icon" />
-        <HeartFilled className="menu-icon" />
-        <UserOutlined className="menu-icon" />
+        <ShoppingCartOutlined
+          onClick={() => navigate("/cart")}
+          className="menu-icon"
+        />
+        <HeartFilled onClick={() => navigate("/login")} className="menu-icon" />
+        <UserOutlined
+          onClick={() => navigate("/login")}
+          className="menu-icon"
+        />
       </div>
     </div>
   );

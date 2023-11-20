@@ -12,19 +12,24 @@ export const CartProvider = ({ children }) => {
       (cartItem) => cartItem.id === item.id
     );
 
-    // Parse the item price to a number, or default to 0 if it's not a valid number
     const itemPrice = !isNaN(Number(item.price)) ? Number(item.price) : 0;
 
     if (existingItemIndex !== -1) {
-      // Calculate the updated price
+      const existingQuantity = Number(updatedCart[existingItemIndex].quantity);
+      const updatedQuantity = existingQuantity + 1;
+
       const existingPrice = Number(updatedCart[existingItemIndex].price);
       const updatedPrice = !isNaN(existingPrice)
         ? existingPrice + itemPrice
         : itemPrice;
 
-      updatedCart[existingItemIndex].price = updatedPrice;
+      updatedCart[existingItemIndex] = {
+        ...item,
+        quantity: updatedQuantity,
+        price: updatedPrice,
+      };
     } else {
-      updatedCart.push({ ...item, price: itemPrice });
+      updatedCart.push({ ...item, quantity: 1, price: itemPrice });
     }
 
     setCartItems(updatedCart);
@@ -33,6 +38,36 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = (item) => {
     const updatedCart = cartItems.filter((cartItem) => cartItem.id !== item.id);
     setCartItems(updatedCart);
+  };
+
+  const decreaseQuantity = (item) => {
+    const updatedCart = [...cartItems];
+    const existingItemIndex = updatedCart.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
+
+    if (existingItemIndex !== -1) {
+      const existingQuantity = Number(updatedCart[existingItemIndex].quantity);
+
+      if (existingQuantity > 1) {
+        // Decrease quantity by 1
+        const updatedQuantity = existingQuantity - 1;
+        const itemPrice = !isNaN(Number(item.price)) ? Number(item.price) : 0;
+        const updatedPrice = itemPrice * updatedQuantity;
+
+        updatedCart[existingItemIndex] = {
+          ...item,
+          quantity: updatedQuantity,
+          price: updatedPrice,
+        };
+      } else {
+        // If quantity is 1, do not remove the item
+        const updatedItem = { ...item, quantity: 1 };
+        updatedCart[existingItemIndex] = updatedItem;
+      }
+
+      setCartItems(updatedCart);
+    }
   };
 
   const addToFavorites = (item) => {
@@ -52,6 +87,7 @@ export const CartProvider = ({ children }) => {
         cartItems,
         addToCart,
         removeFromCart,
+        decreaseQuantity,
         favorites,
         addToFavorites,
         deleteFromFavorites,
